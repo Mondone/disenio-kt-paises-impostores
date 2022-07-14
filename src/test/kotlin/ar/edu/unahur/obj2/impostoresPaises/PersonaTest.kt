@@ -1,5 +1,6 @@
 package ar.edu.unahur.obj2.impostoresPaises
 
+import ar.edu.unahur.obj2.impostoresPaises.cli.Pais
 import ar.edu.unahur.obj2.impostoresPaises.cli.Persona
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
@@ -31,6 +32,12 @@ class PersonaTest: DescribeSpec ({
 
     val bolivia = Pais("Bolivia", "BOL", 10985059, 1098581.0, "América", "BOB", 6.89,
         [argentina, brasil, chile, paraguay, peru], ["UNASUR"], ["Español", "Quechua", "Aymara"])
+    val argentina = Pais()
+    val brasil = Pais()
+    val chile = Pais()
+    val paraguay = Pais()
+    val peru = Pais()
+    val colombia = Pais()
 
     describe("Etapa 1 - Calentando motores") {
         /*
@@ -47,28 +54,29 @@ class PersonaTest: DescribeSpec ({
                 bolivia.densidadPoblacional().shouldBe(9)
             }
             it("4-Conocer el vecino más poblado"){
-                brasil.vecinoMasPoblado().shoudBe(peru)
-                peru.vecinoMasPoblado().shoudBe(brasil)
+
+                brasil.vecinoMasPoblado().shouldBe(peru)
+                peru.vecinoMasPoblado().shouldBe(brasil)
             }
         }
         describe("Para dos países en particular"){
             // hace falta aca el observatorio para las siguientes funciones ?
             it("1-Saber si dos países son limitrofes") {
 
-                sonPaisesLimitrofes(brasil, peru).shouldBeTrue()
-                sonPaisesLimitrofes(bolivia,brasil).shouldBeTrue()
-                sonPaisesLimitrofes(peru,colombia).shouldBeTrue()
+                brasil.sonPaisesLimitrofes(peru).shouldBeTrue()
+                bolivia.sonPaisesLimitrofes(brasil).shouldBeTrue()
+                peru.sonPaisesLimitrofes(colombia).shouldBeTrue()
 
-                sonPaisesLimitrofes(bolivia,colombia).shouldBeFalse()
-                sonPaisesLimitrofes(argentina,colombia).shouldBeFalse()
+                bolivia.sonPaisesLimitrofes(colombia).shouldBeFalse()
+                argentina.sonPaisesLimitrofes(colombia).shouldBeFalse()
             }
             it("2-Saber si dos países necesitan traducción para dialogar"){
-                necesitanTraductor(brasil,peru).shouldBeTrue()
-                necesitanTraductor(brasil,argentina).shouldBeTrue()
+                brasil.necesitanTraductor(peru).shouldBeTrue()
+                brasil.necesitanTraductor(argentina).shouldBeTrue()
             }
             it("3-Conocer si son potenciales aliados"){
-                sonPotencialesAliados(colombia,peru).shouldBeTrue()
-                sonPotencialesAliados(argentina,chile).shouldBeTrue()
+                colombia.sonPotencialesAliados(peru).shouldBeTrue()
+                argentina.sonPotencialesAliados(chile).shouldBeTrue()
             }
             it("4-¿Conviene ir de compras de un país al otro?"){
                 /*
@@ -92,6 +100,6 @@ class PersonaTest: DescribeSpec ({
         }
     }
 
-
-
 })
+
+
