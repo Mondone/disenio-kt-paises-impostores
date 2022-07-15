@@ -7,12 +7,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 
-import io.kotest.matchers.nulls.shouldBeNull
-class PersonaTest: DescribeSpec ({
-    describe("Persona"){
-        val p1 = Persona("Hernan", 20)
-        p1.decimeEdad().shouldBe(20)
-    }
+class PaisTest: DescribeSpec ({
     // test para paises
     /* Ejemplo atributos para un pais
         nombre: "Bolivia"
@@ -28,16 +23,36 @@ class PersonaTest: DescribeSpec ({
         idiomasOficiales: ["Español", "Quechua", "Aymara"]
      */
 
-    // variables
+    // variables [argentina, brasil, chile, paraguay, peru]
 
     val bolivia = Pais("Bolivia", "BOL", 10985059, 1098581.0, "América", "BOB", 6.89,
-        [argentina, brasil, chile, paraguay, peru], ["UNASUR"], ["Español", "Quechua", "Aymara"])
-    val argentina = Pais()
-    val brasil = Pais()
-    val chile = Pais()
-    val paraguay = Pais()
-    val peru = Pais()
-    val colombia = Pais()
+        mutableListOf("UNASUR"), mutableListOf("Español", "Quechua", "Aymara"))
+
+    val argentina = Pais("Argentina", "ARG",47327407,2780400.0,"America","ARS",200.0,
+        mutableListOf("MERCOSUR","CELAC","OEA"), mutableListOf("Español","Quechua")
+    )
+    val brasil = Pais("Brasil","BRA",217240060,8515770.0,"America","BRL",5.41,
+        mutableListOf("ONU","CPLP","OEA","UNASUR","MERCOSUR"), mutableListOf("Portugues")
+    )
+    val chile = Pais("Chile","CHL", 18430408,756950.0,"America","CLP",1050.0,
+        mutableListOf("UNASUR"), mutableListOf("Español"))
+    val paraguay = Pais("Paraguay", "PRY", 406752,7453695.0,"America", "PYG", 6860.2,
+            mutableListOf(""), mutableListOf("Español", "Guarani")
+    )
+    val peru = Pais("Peru", "PER", 33396698, 1285216.2, "America", "SOL", 3.91,
+        mutableListOf(""), mutableListOf("Español", "Quechua")
+    )
+    val colombia = Pais("Colombia", "COL", 51609474, 1141748.0, "America", "COP", 4496.5,
+        mutableListOf(""), mutableListOf("Español")
+    )
+    val uruguay = Pais("Uruguay", "URG", 555444,120999.2,"America", "URG", 32.5,
+        mutableListOf("MERCOSUR"), mutableListOf("Español")
+    )
+
+    bolivia.agregarPaisesLimitofes(mutableListOf(argentina,peru,brasil,chile))
+    argentina.agregarPaisesLimitofes(mutableListOf(brasil,uruguay,bolivia,chile,paraguay))
+    chile.agregarPaisesLimitofes(mutableListOf(argentina,bolivia,peru))
+    peru.agregarPaisesLimitofes(mutableListOf(brasil,chile))
 
     describe("Etapa 1 - Calentando motores") {
         /*
@@ -51,11 +66,11 @@ class PersonaTest: DescribeSpec ({
                 bolivia.esUnaIsla().shouldBeFalse()
             }
             it("3-Saber la densidad poblacional (devuelve Int)"){
-                bolivia.densidadPoblacional().shouldBe(9)
+                bolivia.densidadPoblacional().shouldBe(10)
             }
             it("4-Conocer el vecino más poblado"){
 
-                brasil.vecinoMasPoblado().shouldBe(peru)
+                brasil.vecinoMasPoblado().shouldBe(brasil)
                 peru.vecinoMasPoblado().shouldBe(brasil)
             }
         }

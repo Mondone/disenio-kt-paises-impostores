@@ -22,7 +22,13 @@ class Persona (val nombre: String, val edad: Int){
 
 
 class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superficie: Double, val continente: String, val codMoneda: String,
-            val cotDolar: Int, var paisesLimitrofes: List<Pais>, var bloquesRegionales: List<String>, var idiomasOficiales: List<String>){
+            val cotDolar: Double, var bloquesRegionales: MutableList<String>, var idiomasOficiales: MutableList<String>){
+
+    var paisesLimitrofes = mutableListOf<Pais>()
+
+    fun agregarPaisesLimitofes(paises: MutableList<Pais>){
+        paisesLimitrofes = paises
+    }
 
     fun esPlurinacional() = ( idiomasOficiales.size > 1 )
 
@@ -30,8 +36,8 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
 
     fun densidadPoblacional() = (poblacion/superficie).roundToInt()
 
-    fun vecinoMasPoblado() = paisesLimitrofes.maxByOrNull { P -> P.poblacion }
-    
+    fun vecinoMasPoblado() = paisesLimitrofes.maxByOrNull { pais -> pais.poblacion } // aca falta comparar contra el propio pais
+
     fun sonPaisesLimitrofes(unPais: Pais): Boolean {
 
     }
@@ -51,6 +57,8 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
     fun convertirMonedaA(monto: Int, paisDestino: Pais): Int {
 
     }
+
+
 
 }
 
