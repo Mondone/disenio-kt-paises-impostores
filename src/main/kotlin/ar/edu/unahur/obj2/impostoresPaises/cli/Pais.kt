@@ -22,7 +22,7 @@ class Persona (val nombre: String, val edad: Int){
 
 
 class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superficie: Double, val continente: String, val codMoneda: String,
-            val cotDolar: Double, var bloquesRegionales: MutableList<String>, var idiomasOficiales: MutableList<String>){
+            val cotDolar: Double, var bloquesRegionales: MutableList<String>, var idiomasOficiales: MutableSet<String>){
 
     var paisesLimitrofes = mutableListOf<Pais>()
 
@@ -36,16 +36,32 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
 
     fun densidadPoblacional() = (poblacion/superficie).roundToInt()
 
-    fun vecinoMasPoblado() = paisesLimitrofes.maxByOrNull { pais -> pais.poblacion } // aca falta comparar contra el propio pais
-
-    fun sonPaisesLimitrofes(unPais: Pais): Boolean {
-
+    fun vecinoMasPoblado(): Pais {
+        val vecinoMax = paisesLimitrofes.maxByOrNull { pais -> pais.poblacion }
+        if(vecinoMax !== null && vecinoMax.poblacion > this.poblacion){
+            return vecinoMax
+        }else{
+            return this
+        }
     }
 
-    fun necesitanTraductor(unPais: Pais: Pais): Boolean{
-
+    fun esLimitrofeDe(unPais: Pais): Boolean {
+        var res = false
+        if( paisesLimitrofes.find { it.nombre.contains(unPais.nombre) } != null){
+            res = true
+        }
+        return res
     }
 
+    fun necesitanTraductor(unPais: Pais): Boolean{
+        var res = false
+
+        if (idiomasOficiales.intersect(unPais.idiomasOficiales).isEmpty()) {
+            res = true
+        }
+    return res
+    }
+/*
     fun sonPotencialesAliados(unPais: Pais: Pais): Boolean {
 
     }
@@ -56,7 +72,7 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
 
     fun convertirMonedaA(monto: Int, paisDestino: Pais): Int {
 
-    }
+    }*/
 
 
 
