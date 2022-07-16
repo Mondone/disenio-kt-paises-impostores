@@ -36,7 +36,7 @@ class PaisTest: DescribeSpec ({
         mutableListOf("ONU","CPLP","OEA","UNASUR","MERCOSUR"), mutableSetOf("Portugues")
     )
     val chile = Pais("Chile","CHL", 18430408,756950.0,"America","CLP",1050.0,
-        mutableListOf("UNASUR"), mutableSetOf("Español"))
+        mutableListOf("UNASUR","OEA"), mutableSetOf("Español"))
     val paraguay = Pais("Paraguay", "PRY", 406752,7453695.0,"America", "PYG", 6860.2,
             mutableListOf(""), mutableSetOf("Español", "Guarani")
     )
@@ -44,7 +44,7 @@ class PaisTest: DescribeSpec ({
         mutableListOf(""), mutableSetOf("Español", "Quechua")
     )
     val colombia = Pais("Colombia", "COL", 51609474, 1141748.0, "America", "COP", 4496.5,
-        mutableListOf(""), mutableSetOf("Español")
+        mutableListOf("CELAC"), mutableSetOf("Español")
     )
     val uruguay = Pais("Uruguay", "URG", 555444,120999.2,"America", "URG", 32.5,
         mutableListOf("MERCOSUR"), mutableSetOf("Español")
@@ -92,30 +92,30 @@ class PaisTest: DescribeSpec ({
                 brasil.necesitanTraductor(argentina).shouldBeTrue()
                 argentina.necesitanTraductor(peru).shouldBeFalse()
             }
-            /*
-            it("3-Conocer si son potenciales aliados"){
-                colombia.sonPotencialesAliados(peru).shouldBeTrue()
-                argentina.sonPotencialesAliados(chile).shouldBeTrue()
-            }
-            it("4-¿Conviene ir de compras de un país al otro?"){
-                /*
-                Verdadero cuando la cotizacion del dólar en el país destino es mayor.
 
-                Ejemplo: Argentina la cotización es de 190 y en Bolivia de 6.89,
-                no conviene ir de Argentina a Bolivia pero sí al revés.
-                */
+            it("3-Conocer si son potenciales aliados"){
+                colombia.sonPotencialesAliados(peru).shouldBeFalse()
+                argentina.sonPotencialesAliados(chile).shouldBeTrue()
+                brasil.sonPotencialesAliados(argentina).shouldBeFalse()
+                uruguay.sonPotencialesAliados(argentina).shouldBeTrue()
+            }
+
+            it("4-¿Conviene ir de compras de un país al otro?"){
                 argentina.convieneComprarEn(brasil).shouldBeFalse()
                 brasil.convieneComprarEn(argentina).shouldBeTrue()
+                colombia.convieneComprarEn(bolivia).shouldBeFalse()
+                bolivia.convieneComprarEn(colombia).shouldBeTrue()
 
             }
+
             it("5-Conocer a cuánto equivale un monto en la moneda local, en la moneda de destino"){
-                /*
-                 Como la referencia que estamos tomando es el precio del dólar,
-                la equivalencia se haría convirtiendo primero a dólar y luego a la moneda de destino.
-                */
-                argentina.convertirMonedaA(1000, brasil).shouldBe(999) // verificar numeros
-                colombia.convertirMonedaA(3000, chile).shouldBe(500)   // verificar numeros
-            }*/
+
+                argentina.convertirMonedaA(1000, brasil).shouldBe(27) //27.05
+                colombia.convertirMonedaA(300000, chile).shouldBe(70054) //70054.48
+                uruguay.convertirMonedaA(700, chile).shouldBe(22615) //22615.38
+                peru.convertirMonedaA(950, argentina).shouldBe(48593) //48593.35
+                brasil.convertirMonedaA(1000,colombia).shouldBe(831146) //831146.02
+            }
         }
     }
 

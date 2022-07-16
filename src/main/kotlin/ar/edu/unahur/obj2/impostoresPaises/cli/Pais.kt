@@ -61,20 +61,18 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
         }
     return res
     }
-/*
-    fun sonPotencialesAliados(unPais: Pais: Pais): Boolean {
-
+   //Conocer si son potenciales aliados. Esto es así cuando no necesitan traducción y además comparten algún bloque regional.
+    fun sonPotencialesAliados(unPais: Pais): Boolean {
+       var res = false
+        if(!this.necesitanTraductor(unPais) && bloquesRegionales.toMutableSet().intersect(unPais.bloquesRegionales.toMutableSet()).isNotEmpty()){
+            res = true
+        }
+       return res
     }
 
-    fun convieneComprarEn(paisDestino: Pais): Boolean {
+    fun convieneComprarEn(paisDestino: Pais): Boolean = this.cotDolar < paisDestino.cotDolar
 
-    }
-
-    fun convertirMonedaA(monto: Int, paisDestino: Pais): Int {
-
-    }*/
-
-
+    fun convertirMonedaA(monto: Int, paisDestino: Pais): Int = (monto/cotDolar*paisDestino.cotDolar).roundToInt()
 
 }
 
