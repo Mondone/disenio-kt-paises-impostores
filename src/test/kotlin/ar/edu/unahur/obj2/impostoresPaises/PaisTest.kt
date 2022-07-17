@@ -1,5 +1,6 @@
 package ar.edu.unahur.obj2.impostoresPaises
 
+import ar.edu.unahur.obj2.impostoresPaises.cli.Observatorio
 import ar.edu.unahur.obj2.impostoresPaises.cli.Pais
 import ar.edu.unahur.obj2.impostoresPaises.cli.Persona
 import io.kotest.core.spec.style.DescribeSpec
@@ -125,30 +126,55 @@ class PaisTest: DescribeSpec ({
         */
         describe("Para dos países en particular, se envia el nombre por parametro no el objeto"){
             it("1-Si dos países son limitrofes"){
+                Observatorio.sonLimitrofes("Brasil","Peru").shouldBeTrue()
+                Observatorio.sonLimitrofes("Bolivia", "Brasil").shouldBeTrue()
+                Observatorio.sonLimitrofes("Peru", "Colombia").shouldBeTrue()
 
+                Observatorio.sonLimitrofes("Bolivia", "Colombia").shouldBeFalse()
+                Observatorio.sonLimitrofes("Argentina", "Colombia").shouldBeFalse()
             }
             it("2-Saber si necesitan traducción para poder dialogar "){
-
+                Observatorio.necesitanTraductor("Brasil", "Peru").shouldBeTrue()
+                Observatorio.necesitanTraductor("Brasil", "Peru").shouldBeTrue()
+                Observatorio.necesitanTraductor("Argentina", "Peru").shouldBeFalse()
             }
             it("3-Conocer si son potenciales aliados"){
-
+                Observatorio.sonPotencialesAliados("Colombia", "Peru").shouldBeFalse()
+                Observatorio.sonPotencialesAliados("Argentina", "Chile").shouldBeTrue()
+                Observatorio.sonPotencialesAliados("Brasil", "Argentina").shouldBeFalse()
+                Observatorio.sonPotencialesAliados("Uruguay", "Argentina").shouldBeTrue()
             }
             it("4-¿Conviene ir de compras de un país al otro?"){
 
+                // ver nombre funcion?
+
+                Observatorio.convieneComprarDesdeA("Argentina", "Brasil").shouldBeFalse()
+                Observatorio.convieneComprarDesdeA("Brasil", "Argentina").shouldBeTrue()
+                Observatorio.convieneComprarDesdeA("Colombia", "Bolivia").shouldBeFalse()
+                Observatorio.convieneComprarDesdeA("Bolivia", "Colombia").shouldBeTrue()
             }
             it("5-Conocer a cuánto equivale un monto en la moneda local, en la moneda de destino"){
+
+                Observatorio.convertirMoneda(1000,"Argentina","Brasil").shouldBe(27)    //27.05
+                Observatorio.convertirMoneda(300000,"Colombia","Chile").shouldBe(70054) //70054.48
+                Observatorio.convertirMoneda(700,"Uruguay","Chile").shouldBe(22615)     //22615.38
+                Observatorio.convertirMoneda(950,"Peru","Argentina").shouldBe(48593)    //48593.35
+                Observatorio.convertirMoneda(1000,"Brasil","Colombia").shouldBe(831146) //831146.02
 
             }
         }
         describe("Sobre el conjunto de todos los países "){
             it("1-Obtener los códigos ISO de los 5 países con mayor densidad poblacional"){
-
+                // aplicar en esta funcion un ordernamiento por nombre ISO
+                Observatorio.cincoDeMayorDensidadPoblacional().shouldBe(mutableSetOf("X", "X2","X3", "X4", "X5"))
             }
             it("2-Indicar el nombre del continente con más paises plurinacionales"){
-
+                // chequear
+                Observatorio.continenteMasPlurinacional().shouldBe("America")
             }
             it("3-Conocer el promedio de densidad poblacional de los países insulares (países que son islas)"){
-
+                // chequear
+                Observatorio.promedioDensidadPoblacionalInsulares().shouldBe(5.4)
             }
         }
 
