@@ -118,7 +118,41 @@ class PaisTest: DescribeSpec ({
             }
         }
     }
+    describe("Etapa 2 - Observatorio"){
+        /*
+        El Observatorio es un objeto que conoce a todos los países y debe
+        poder responder las consultas que se enuncian a continuación.
+        */
+        describe("Para dos países en particular, se envia el nombre por parametro no el objeto"){
+            it("1-Si dos países son limitrofes"){
 
+            }
+            it("2-Saber si necesitan traducción para poder dialogar "){
+
+            }
+            it("3-Conocer si son potenciales aliados"){
+
+            }
+            it("4-¿Conviene ir de compras de un país al otro?"){
+
+            }
+            it("5-Conocer a cuánto equivale un monto en la moneda local, en la moneda de destino"){
+
+            }
+        }
+        describe("Sobre el conjunto de todos los países "){
+            it("1-Obtener los códigos ISO de los 5 países con mayor densidad poblacional"){
+
+            }
+            it("2-Indicar el nombre del continente con más paises plurinacionales"){
+
+            }
+            it("3-Conocer el promedio de densidad poblacional de los países insulares (países que son islas)"){
+
+            }
+        }
+
+    }
 })
 
 
