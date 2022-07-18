@@ -59,7 +59,7 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
         if (idiomasOficiales.intersect(unPais.idiomasOficiales).isEmpty()) {
             res = true
         }
-    return res
+        return res
     }
    //Conocer si son potenciales aliados. Esto es así cuando no necesitan traducción y además comparten algún bloque regional.
     fun sonPotencialesAliados(unPais: Pais): Boolean {

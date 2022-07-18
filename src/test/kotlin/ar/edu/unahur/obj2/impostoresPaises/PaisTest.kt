@@ -124,6 +124,8 @@ class PaisTest: DescribeSpec ({
         El Observatorio es un objeto que conoce a todos los países y debe
         poder responder las consultas que se enuncian a continuación.
         */
+        Observatorio.paises = mutableListOf(bolivia,argentina,brasil,chile,paraguay,peru,colombia,uruguay)
+
         describe("Para dos países en particular, se envia el nombre por parametro no el objeto"){
             it("1-Si dos países son limitrofes"){
                 Observatorio.sonLimitrofes("Brasil","Peru").shouldBeTrue()
@@ -133,17 +135,22 @@ class PaisTest: DescribeSpec ({
                 Observatorio.sonLimitrofes("Bolivia", "Colombia").shouldBeFalse()
                 Observatorio.sonLimitrofes("Argentina", "Colombia").shouldBeFalse()
             }
+
             it("2-Saber si necesitan traducción para poder dialogar "){
                 Observatorio.necesitanTraductor("Brasil", "Peru").shouldBeTrue()
                 Observatorio.necesitanTraductor("Brasil", "Peru").shouldBeTrue()
                 Observatorio.necesitanTraductor("Argentina", "Peru").shouldBeFalse()
             }
+
+
             it("3-Conocer si son potenciales aliados"){
                 Observatorio.sonPotencialesAliados("Colombia", "Peru").shouldBeFalse()
                 Observatorio.sonPotencialesAliados("Argentina", "Chile").shouldBeTrue()
                 Observatorio.sonPotencialesAliados("Brasil", "Argentina").shouldBeFalse()
                 Observatorio.sonPotencialesAliados("Uruguay", "Argentina").shouldBeTrue()
             }
+
+
             it("4-¿Conviene ir de compras de un país al otro?"){
 
                 // ver nombre funcion?
@@ -153,6 +160,8 @@ class PaisTest: DescribeSpec ({
                 Observatorio.convieneComprarDesdeA("Colombia", "Bolivia").shouldBeFalse()
                 Observatorio.convieneComprarDesdeA("Bolivia", "Colombia").shouldBeTrue()
             }
+
+
             it("5-Conocer a cuánto equivale un monto en la moneda local, en la moneda de destino"){
 
                 Observatorio.convertirMoneda(1000,"Argentina","Brasil").shouldBe(27)    //27.05
@@ -162,7 +171,10 @@ class PaisTest: DescribeSpec ({
                 Observatorio.convertirMoneda(1000,"Brasil","Colombia").shouldBe(831146) //831146.02
 
             }
+
+
         }
+        /*
         describe("Sobre el conjunto de todos los países "){
             it("1-Obtener los códigos ISO de los 5 países con mayor densidad poblacional"){
                 // aplicar en esta funcion un ordernamiento por nombre ISO
@@ -177,6 +189,8 @@ class PaisTest: DescribeSpec ({
                 Observatorio.promedioDensidadPoblacionalInsulares().shouldBe(5.4)
             }
         }
+        */
+
 
     }
 })
