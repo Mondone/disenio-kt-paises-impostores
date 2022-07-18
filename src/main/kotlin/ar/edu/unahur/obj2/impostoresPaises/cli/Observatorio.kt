@@ -56,11 +56,18 @@ object Observatorio {
 
     }
 
-    /*
-    fun cincoDeMayorDensidadPoblacional(): Set<String> {
-        
-    }
 
+    fun cincoDeMayorDensidadPoblacional(): Set<String> {
+        var losCinco = mutableSetOf<String>()
+        var paisesLista = paises
+        repeat(5) {
+            losCinco.add( (paisesLista.maxByOrNull { p -> p.densidadPoblacional() }!!.ISO3))
+            paisesLista.remove(paisesLista.maxByOrNull { p -> p.densidadPoblacional() })
+        }
+        print(losCinco)
+        return losCinco
+    }
+/*
     fun continenteMasPlurinacional(): String {
 
     }

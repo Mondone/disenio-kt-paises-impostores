@@ -174,12 +174,15 @@ class PaisTest: DescribeSpec ({
 
 
         }
-        /*
+
         describe("Sobre el conjunto de todos los países "){
             it("1-Obtener los códigos ISO de los 5 países con mayor densidad poblacional"){
-                // aplicar en esta funcion un ordernamiento por nombre ISO
-                Observatorio.cincoDeMayorDensidadPoblacional().shouldBe(mutableSetOf("X", "X2","X3", "X4", "X5"))
+
+                // [Colombia, Brasil, Peru, Chile, Argentina]
+                // [COL, BRA, PER, CHL, ARG]
+                Observatorio.cincoDeMayorDensidadPoblacional().shouldBe(mutableSetOf("COL", "BRA", "PER", "CHL", "ARG"))
             }
+            /*
             it("2-Indicar el nombre del continente con más paises plurinacionales"){
                 // chequear
                 Observatorio.continenteMasPlurinacional().shouldBe("America")
@@ -188,8 +191,9 @@ class PaisTest: DescribeSpec ({
                 // chequear
                 Observatorio.promedioDensidadPoblacionalInsulares().shouldBe(5.4)
             }
+            */
         }
-        */
+
 
 
     }

@@ -74,5 +74,7 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
 
     fun convertirMonedaA(monto: Int, paisDestino: Pais): Int = (monto/cotDolar*paisDestino.cotDolar).roundToInt()
 
+
+
 }
 
