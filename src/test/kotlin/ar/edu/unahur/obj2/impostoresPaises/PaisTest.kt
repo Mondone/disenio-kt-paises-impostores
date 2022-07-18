@@ -1,8 +1,7 @@
 package ar.edu.unahur.obj2.impostoresPaises
 
-import ar.edu.unahur.obj2.impostoresPaises.cli.Observatorio
+import ar.edu.unahur.obj2.impostoresPaises.cli.observatorio
 import ar.edu.unahur.obj2.impostoresPaises.cli.Pais
-import ar.edu.unahur.obj2.impostoresPaises.cli.Persona
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -124,30 +123,32 @@ class PaisTest: DescribeSpec ({
         El Observatorio es un objeto que conoce a todos los países y debe
         poder responder las consultas que se enuncian a continuación.
         */
-        Observatorio.paises = mutableListOf(bolivia,argentina,brasil,chile,paraguay,peru,colombia,uruguay)
+        var observatorio = observatorio()
+
+        observatorio.paises = mutableListOf(bolivia,argentina,brasil,chile,paraguay,peru,colombia,uruguay)
 
         describe("Para dos países en particular, se envia el nombre por parametro no el objeto"){
             it("1-Si dos países son limitrofes"){
-                Observatorio.sonLimitrofes("Brasil","Peru").shouldBeTrue()
-                Observatorio.sonLimitrofes("Bolivia", "Brasil").shouldBeTrue()
-                Observatorio.sonLimitrofes("Peru", "Colombia").shouldBeTrue()
+                observatorio.sonLimitrofes("Brasil","Peru").shouldBeTrue()
+                observatorio.sonLimitrofes("Bolivia", "Brasil").shouldBeTrue()
+                observatorio.sonLimitrofes("Peru", "Colombia").shouldBeTrue()
 
-                Observatorio.sonLimitrofes("Bolivia", "Colombia").shouldBeFalse()
-                Observatorio.sonLimitrofes("Argentina", "Colombia").shouldBeFalse()
+                observatorio.sonLimitrofes("Bolivia", "Colombia").shouldBeFalse()
+                observatorio.sonLimitrofes("Argentina", "Colombia").shouldBeFalse()
             }
 
             it("2-Saber si necesitan traducción para poder dialogar "){
-                Observatorio.necesitanTraductor("Brasil", "Peru").shouldBeTrue()
-                Observatorio.necesitanTraductor("Brasil", "Peru").shouldBeTrue()
-                Observatorio.necesitanTraductor("Argentina", "Peru").shouldBeFalse()
+                observatorio.necesitanTraductor("Brasil", "Peru").shouldBeTrue()
+                observatorio.necesitanTraductor("Brasil", "Peru").shouldBeTrue()
+                observatorio.necesitanTraductor("Argentina", "Peru").shouldBeFalse()
             }
 
 
             it("3-Conocer si son potenciales aliados"){
-                Observatorio.sonPotencialesAliados("Colombia", "Peru").shouldBeFalse()
-                Observatorio.sonPotencialesAliados("Argentina", "Chile").shouldBeTrue()
-                Observatorio.sonPotencialesAliados("Brasil", "Argentina").shouldBeFalse()
-                Observatorio.sonPotencialesAliados("Uruguay", "Argentina").shouldBeTrue()
+                observatorio.sonPotencialesAliados("Colombia", "Peru").shouldBeFalse()
+                observatorio.sonPotencialesAliados("Argentina", "Chile").shouldBeTrue()
+                observatorio.sonPotencialesAliados("Brasil", "Argentina").shouldBeFalse()
+                observatorio.sonPotencialesAliados("Uruguay", "Argentina").shouldBeTrue()
             }
 
 
@@ -155,20 +156,20 @@ class PaisTest: DescribeSpec ({
 
                 // ver nombre funcion?
 
-                Observatorio.convieneComprarDesdeA("Argentina", "Brasil").shouldBeFalse()
-                Observatorio.convieneComprarDesdeA("Brasil", "Argentina").shouldBeTrue()
-                Observatorio.convieneComprarDesdeA("Colombia", "Bolivia").shouldBeFalse()
-                Observatorio.convieneComprarDesdeA("Bolivia", "Colombia").shouldBeTrue()
+                observatorio.convieneComprarDesdeA("Argentina", "Brasil").shouldBeFalse()
+                observatorio.convieneComprarDesdeA("Brasil", "Argentina").shouldBeTrue()
+                observatorio.convieneComprarDesdeA("Colombia", "Bolivia").shouldBeFalse()
+                observatorio.convieneComprarDesdeA("Bolivia", "Colombia").shouldBeTrue()
             }
 
 
             it("5-Conocer a cuánto equivale un monto en la moneda local, en la moneda de destino"){
 
-                Observatorio.convertirMoneda(1000,"Argentina","Brasil").shouldBe(27)    //27.05
-                Observatorio.convertirMoneda(300000,"Colombia","Chile").shouldBe(70054) //70054.48
-                Observatorio.convertirMoneda(700,"Uruguay","Chile").shouldBe(22615)     //22615.38
-                Observatorio.convertirMoneda(950,"Peru","Argentina").shouldBe(48593)    //48593.35
-                Observatorio.convertirMoneda(1000,"Brasil","Colombia").shouldBe(831146) //831146.02
+                observatorio.convertirMoneda(1000,"Argentina","Brasil").shouldBe(27)    //27.05
+                observatorio.convertirMoneda(300000,"Colombia","Chile").shouldBe(70054) //70054.48
+                observatorio.convertirMoneda(700,"Uruguay","Chile").shouldBe(22615)     //22615.38
+                observatorio.convertirMoneda(950,"Peru","Argentina").shouldBe(48593)    //48593.35
+                observatorio.convertirMoneda(1000,"Brasil","Colombia").shouldBe(831146) //831146.02
 
             }
 
@@ -180,16 +181,22 @@ class PaisTest: DescribeSpec ({
 
                 // [Colombia, Brasil, Peru, Chile, Argentina]
                 // [COL, BRA, PER, CHL, ARG]
-                Observatorio.cincoDeMayorDensidadPoblacional().shouldBe(mutableSetOf("COL", "BRA", "PER", "CHL", "ARG"))
+                observatorio.cincoDeMayorDensidadPoblacional()//.shouldBe(mutableSetOf("COL", "BRA", "PER", "CHL", "ARG"))
+                //DecoradorDeCodigosIso(observatorio.cincoDeMayorDensidadPoblacional)
+            // "Los cinco paises con mayor densidad poblacional son los siguientes con su codigo iso: COL , BRA , PER , CHL , ARG"
             }
             /*
             it("2-Indicar el nombre del continente con más paises plurinacionales"){
                 // chequear
                 Observatorio.continenteMasPlurinacional().shouldBe("America")
+                DecoradorContinentePlurinacional(Observatori.continenteMasPlurinacional)
+                // "El continente con mas paises plurinacionales es = "America" "
+
             }
             it("3-Conocer el promedio de densidad poblacional de los países insulares (países que son islas)"){
                 // chequear
                 Observatorio.promedioDensidadPoblacionalInsulares().shouldBe(5.4)
+
             }
             */
         }

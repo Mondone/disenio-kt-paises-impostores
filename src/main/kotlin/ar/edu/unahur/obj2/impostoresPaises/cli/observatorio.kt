@@ -2,9 +2,15 @@ package ar.edu.unahur.obj2.impostoresPaises.cli
 
 import kotlin.math.roundToInt
 
-object Observatorio {
+interface Componente {
+    fun ejecutar()
+}
+
+class observatorio : Componente{
 
     var paises = mutableListOf<Pais>()
+
+    override fun ejecutar() {}
 
     fun sonLimitrofes(unPais: String, otroPais: String): Boolean {
         val primerPais = paises.find { p -> p.nombre == unPais}!!
@@ -57,8 +63,9 @@ object Observatorio {
     }
 
 
-    fun cincoDeMayorDensidadPoblacional(): Set<String> {
-        var losCinco = mutableSetOf<String>()
+    /*
+    fun cincoDeMayorDensidadPoblacional(): MutableList<Pais> {
+        /*var losCinco = mutableSetOf<String>()
         var paisesLista = paises
         repeat(5) {
             losCinco.add( (paisesLista.maxByOrNull { p -> p.densidadPoblacional() }!!.ISO3))
@@ -66,8 +73,17 @@ object Observatorio {
         }
         print(losCinco)
         return losCinco
+
+         */
+
+        paises.sortByDescending { p -> p.densidadPoblacional()}
+
+        paises.forEach { p -> print(p.nombre)}
+        paises.forEach { p -> print(p.ISO3)}
+        return paises
+
     }
-/*
+
     fun continenteMasPlurinacional(): String {
 
     }
