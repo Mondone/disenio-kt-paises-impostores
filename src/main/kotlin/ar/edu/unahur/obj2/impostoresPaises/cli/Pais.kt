@@ -2,10 +2,6 @@ package ar.edu.unahur.obj2.impostoresPaises.cli
 
 import kotlin.math.roundToInt
 
-class Persona (val nombre: String, val edad: Int){
-    fun decimeEdad() = edad
-}
-// test para paises
 /* Ejemplo atributos para un pais
     nombre: "Bolivia"
     codigoIso3: "BOL"
@@ -18,8 +14,7 @@ class Persona (val nombre: String, val edad: Int){
     paisesLimitrofes: [argentina, brasil, chile, paraguay, peru]
     bloquesRegionales: ["UNASUR"]
     idiomasOficiales: ["Español", "Quechua", "Aymara"]
- */
-
+*/
 
 class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superficie: Double, val continente: String, val codMoneda: String,
             val cotDolar: Double, var bloquesRegionales: MutableList<String>, var idiomasOficiales: MutableSet<String>){
@@ -61,7 +56,7 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
         }
         return res
     }
-   //Conocer si son potenciales aliados. Esto es así cuando no necesitan traducción y además comparten algún bloque regional.
+    //Conocer si son potenciales aliados. Esto es así cuando no necesitan traducción y además comparten algún bloque regional.
     fun sonPotencialesAliados(unPais: Pais): Boolean {
        var res = false
         if(!this.necesitanTraductor(unPais) && bloquesRegionales.toMutableSet().intersect(unPais.bloquesRegionales.toMutableSet()).isNotEmpty()){
@@ -73,8 +68,6 @@ class Pais (val nombre: String, val ISO3: String, val poblacion: Int, val superf
     fun convieneComprarEn(paisDestino: Pais): Boolean = this.cotDolar < paisDestino.cotDolar
 
     fun convertirMonedaA(monto: Int, paisDestino: Pais): Int = (monto/cotDolar*paisDestino.cotDolar).roundToInt()
-
-
 
 }
 

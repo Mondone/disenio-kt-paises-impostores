@@ -4,7 +4,6 @@ import kotlin.math.roundToInt
 
 
 class ObservatorioConcrete : ObservatorioComponent{
-
     var paises = mutableListOf<Pais>()
 
     override fun cincoDeMayorDensidadPoblacional() : String {
@@ -29,7 +28,6 @@ class ObservatorioConcrete : ObservatorioComponent{
         return res
     }
 
-
     fun necesitanTraductor(unPais: String, otroPais: String): Boolean {
         val primerPais = paises.find { p -> p.nombre == unPais}!!
         val segundoPais = paises.find { p -> p.nombre == otroPais}!!
@@ -52,14 +50,13 @@ class ObservatorioConcrete : ObservatorioComponent{
         return res
     }
 
-   fun convieneComprarDesdeA(unPais: String, paisDestino: String): Boolean {
+    fun convieneComprarDesdeA(unPais: String, paisDestino: String): Boolean {
         val origen = paises.find { p -> p.nombre == unPais}!!
         val destino = paises.find { p -> p.nombre == paisDestino}!!
 
         return origen.cotDolar < destino.cotDolar
     }
 
-    // fun convertirMonedaA(monto: Int, paisDestino: Pais): Int = (monto/cotDolar*paisDestino.cotDolar).roundToInt()
     fun convertirMoneda(monto: Int, paisOrigen: String, paisDestino: String): Int {
         val origen = paises.find { p -> p.nombre == paisOrigen}!!
         val destino = paises.find { p -> p.nombre == paisDestino}!!
@@ -69,25 +66,21 @@ class ObservatorioConcrete : ObservatorioComponent{
     }
 
     fun continenteMasPlurinacional(): String {
-        //Utilizo un Map para indicar CONTINENTE - CANTIDAD
-        val ocurrenciasContinente: MutableMap<String, Int> = HashMap()
+       //Utilizo un Map para indicar CONTINENTE - CANTIDAD
+       val ocurrenciasContinente: MutableMap<String, Int> = HashMap()
 
-        for(p in paises){
-            if(p.esPlurinacional()) {
-                var count = ocurrenciasContinente[p.continente]
-                if (count == null) count = 0
-                ocurrenciasContinente[p.continente] = count + 1
-            }
-        }
-
-        return ocurrenciasContinente.maxByOrNull { it.value }?.key.toString()
+       for (p in paises) {
+           if (p.esPlurinacional()) {
+               var count = ocurrenciasContinente[p.continente]
+               if (count == null) count = 0
+               ocurrenciasContinente[p.continente] = count + 1
+           }
+       }
+       return ocurrenciasContinente.maxByOrNull { it.value }?.key.toString()
     }
 
     fun promedioDensidadPoblacionalInsulares(): Int {
         var paisesInsulares = paises.filter { p -> p.esUnaIsla() }
-        return paisesInsulares.sumOf { p -> p.densidadPoblacional() } / paisesInsulares.size
-
+        return (paisesInsulares.sumOf { p -> p.densidadPoblacional() } )/ paisesInsulares.size
     }
-
-
 }
