@@ -1,11 +1,13 @@
 package ar.edu.unahur.obj2.impostoresPaises
 
-import ar.edu.unahur.obj2.impostoresPaises.cli.observatorio
-import ar.edu.unahur.obj2.impostoresPaises.cli.Pais
+import ar.edu.unahur.obj2.impostoresPaises.cli.CincoMayorDensidadConcreteDecorator
+import ar.edu.unahur.obj2.impostoresPaises.cli.*
+
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.should
 
 class PaisTest: DescribeSpec ({
     // test para paises
@@ -25,14 +27,14 @@ class PaisTest: DescribeSpec ({
 
     // variables [argentina, brasil, chile, paraguay, peru]
 
-    val bolivia = Pais("Bolivia", "BOL", 10985059, 1098581.0, "América", "BOB", 6.89,
+    val bolivia = Pais("Bolivia", "BOL", 10985059, 1098581.0, "America", "BOB", 6.89,
         mutableListOf("UNASUR"), mutableSetOf("Español", "Quechua", "Aymara")
     )
 
     val argentina = Pais("Argentina", "ARG",47327407,2780400.0,"America","ARS",200.0,
         mutableListOf("MERCOSUR","CELAC","OEA"), mutableSetOf("Español","Quechua")
     )
-    val brasil = Pais("Brasil","BRA",217240060,8515770.0,"America","BRL",5.41,
+    val brasil = Pais("Brasil","BRA",17940060,8515770.0,"America","BRL",5.41,
         mutableListOf("ONU","CPLP","OEA","UNASUR","MERCOSUR"), mutableSetOf("Portugues")
     )
     val chile = Pais("Chile","CHL", 18430408,756950.0,"America","CLP",1050.0,
@@ -49,7 +51,18 @@ class PaisTest: DescribeSpec ({
     val uruguay = Pais("Uruguay", "URG", 555444,120999.2,"America", "URG", 32.5,
         mutableListOf("MERCOSUR"), mutableSetOf("Español")
     )
-
+    val francia = Pais("Francia", "EUR", 555444,120999.2,"Europa", "URG", 32.5,
+        mutableListOf("MERCOSUR"), mutableSetOf("Frances")
+    )
+    val espania = Pais("España", "URG", 555444,120999.2,"Europa", "URG", 32.5,
+        mutableListOf("MERCOSUR"), mutableSetOf("Español", "Catalan")
+    )
+    val italia = Pais("Italia", "URG", 555444,120999.2,"Europa", "URG", 32.5,
+        mutableListOf("MERCOSUR"), mutableSetOf("Italiano")
+    )
+    val alemania = Pais("Alemania", "URG", 555444,120999.2,"Europa", "URG", 32.5,
+        mutableListOf("MERCOSUR"), mutableSetOf("Aleman")
+    )
     bolivia.agregarPaisesLimitofes(mutableListOf(argentina,peru,brasil,chile))
     argentina.agregarPaisesLimitofes(mutableListOf(brasil,uruguay,bolivia,chile,paraguay))
     chile.agregarPaisesLimitofes(mutableListOf(argentina,bolivia,peru))
@@ -123,7 +136,7 @@ class PaisTest: DescribeSpec ({
         El Observatorio es un objeto que conoce a todos los países y debe
         poder responder las consultas que se enuncian a continuación.
         */
-        var observatorio = observatorio()
+        var observatorio = ObservatorioConcrete()
 
         observatorio.paises = mutableListOf(bolivia,argentina,brasil,chile,paraguay,peru,colombia,uruguay)
 
@@ -179,26 +192,25 @@ class PaisTest: DescribeSpec ({
         describe("Sobre el conjunto de todos los países "){
             it("1-Obtener los códigos ISO de los 5 países con mayor densidad poblacional"){
 
-                // [Colombia, Brasil, Peru, Chile, Argentina]
-                // [COL, BRA, PER, CHL, ARG]
-                observatorio.cincoDeMayorDensidadPoblacional()//.shouldBe(mutableSetOf("COL", "BRA", "PER", "CHL", "ARG"))
-                //DecoradorDeCodigosIso(observatorio.cincoDeMayorDensidadPoblacional)
-            // "Los cinco paises con mayor densidad poblacional son los siguientes con su codigo iso: COL , BRA , PER , CHL , ARG"
-            }
-            /*
-            it("2-Indicar el nombre del continente con más paises plurinacionales"){
-                // chequear
-                Observatorio.continenteMasPlurinacional().shouldBe("America")
-                DecoradorContinentePlurinacional(Observatori.continenteMasPlurinacional)
-                // "El continente con mas paises plurinacionales es = "America" "
+                observatorio.cincoDeMayorDensidadPoblacional().shouldBe("COL PER CHL ARG BOL ")
 
+                val observatorioDecorado = CincoMayorDensidadConcreteDecorator(observatorio)
+                observatorioDecorado.cincoDeMayorDensidadPoblacional().shouldBe("Los 5 con Mayor Densidad (Decorado) son: COL PER CHL ARG BOL ")
+
+            }
+
+            it("2-Indicar el nombre del continente con más paises plurinacionales"){
+
+                observatorio.paises.clear()
+                observatorio.paises = mutableListOf(italia,bolivia,argentina,brasil,chile,paraguay,peru,colombia,uruguay, espania,francia,alemania)
+                observatorio.continenteMasPlurinacional().shouldBe("America")
             }
             it("3-Conocer el promedio de densidad poblacional de los países insulares (países que son islas)"){
-                // chequear
-                Observatorio.promedioDensidadPoblacionalInsulares().shouldBe(5.4)
+                //Ezequiel tiene que pensar el escenario .... hjajajaja
+                observatorio.promedioDensidadPoblacionalInsulares().shouldBe(0.0)
 
             }
-            */
+
         }
 
 

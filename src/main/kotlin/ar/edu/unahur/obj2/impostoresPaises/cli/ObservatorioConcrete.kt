@@ -2,15 +2,21 @@ package ar.edu.unahur.obj2.impostoresPaises.cli
 
 import kotlin.math.roundToInt
 
-interface Componente {
-    fun ejecutar()
-}
 
-class observatorio : Componente{
+class ObservatorioConcrete : ObservatorioComponent{
 
     var paises = mutableListOf<Pais>()
 
-    override fun ejecutar() {}
+    override fun cincoDeMayorDensidadPoblacional() : String {
+        var res = ""
+        paises.sortByDescending { p -> p.densidadPoblacional()}
+        paises.forEach { p -> print(p.ISO3)}
+        for (i in 0..4){
+            val codigo = paises[i].ISO3
+            res +=  codigo + " "
+        }
+        return res
+    }
 
     fun sonLimitrofes(unPais: String, otroPais: String): Boolean {
         val primerPais = paises.find { p -> p.nombre == unPais}!!
@@ -62,35 +68,26 @@ class observatorio : Componente{
 
     }
 
-
-    /*
-    fun cincoDeMayorDensidadPoblacional(): MutableList<Pais> {
-        /*var losCinco = mutableSetOf<String>()
-        var paisesLista = paises
-        repeat(5) {
-            losCinco.add( (paisesLista.maxByOrNull { p -> p.densidadPoblacional() }!!.ISO3))
-            paisesLista.remove(paisesLista.maxByOrNull { p -> p.densidadPoblacional() })
-        }
-        print(losCinco)
-        return losCinco
-
-         */
-
-        paises.sortByDescending { p -> p.densidadPoblacional()}
-
-        paises.forEach { p -> print(p.nombre)}
-        paises.forEach { p -> print(p.ISO3)}
-        return paises
-
-    }
-
     fun continenteMasPlurinacional(): String {
+        //Utilizo un Map para indicar CONTINENTE - CANTIDAD
+        val ocurrenciasContinente: MutableMap<String, Int> = HashMap()
+
+        for(p in paises){
+            if(p.esPlurinacional()) {
+                var count = ocurrenciasContinente[p.continente]
+                if (count == null) count = 0
+                ocurrenciasContinente[p.continente] = count + 1
+            }
+        }
+
+        return ocurrenciasContinente.maxByOrNull { it.value }?.key.toString()
+    }
+
+    fun promedioDensidadPoblacionalInsulares(): Int {
+        var paisesInsulares = paises.filter { p -> p.esUnaIsla() }
+        return paisesInsulares.sumOf { p -> p.densidadPoblacional() } / paisesInsulares.size
 
     }
 
-    fun promedioDensidadPoblacionalInsulares(): Double {
-
-    }
-*/
 
 }
